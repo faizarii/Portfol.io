@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Lenis from 'lenis';
 import { BackgroundCanvas } from './components/BackgroundCanvas';
 import { Navbar } from './components/Navbar';
@@ -15,8 +15,20 @@ import { AnimationLoader } from './components/AnimationLoader';
 export const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isContactOpen, setIsContactOpen] = useState(false);
+  const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
+    // Disable automatic browser scroll restoration on reload
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+
+    // Reset window scroll to top and clear any hash anchor
+    window.scrollTo(0, 0);
+    if (window.location.hash) {
+      window.history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+
     // Silky smooth, uniform gliding scroll across the entire website
     const lenis = new Lenis({
       duration: 1.1,
@@ -25,6 +37,9 @@ export const App: React.FC = () => {
       wheelMultiplier: 0.9,
       touchMultiplier: 1.2,
     });
+
+    lenisRef.current = lenis;
+    lenis.scrollTo(0, { immediate: true });
 
     function raf(time: number) {
       lenis.raf(time);
@@ -38,6 +53,14 @@ export const App: React.FC = () => {
       lenis.destroy();
     };
   }, []);
+
+  const handleLoadingComplete = () => {
+    setIsLoading(false);
+    window.scrollTo(0, 0);
+    if (lenisRef.current) {
+      lenisRef.current.scrollTo(0, { immediate: true });
+    }
+  };
 
   return (
     <div className="relative w-full bg-[#00509D] text-white selection:bg-[#FFD166] selection:text-[#002952] overflow-x-clip">
@@ -79,7 +102,7 @@ export const App: React.FC = () => {
 
       {/* Cinematic Intro Preloader Screen */}
       {isLoading && (
-        <AnimationLoader onComplete={() => setIsLoading(false)} />
+        <AnimationLoader onComplete={handleLoadingComplete} />
       )}
     </div>
   );
