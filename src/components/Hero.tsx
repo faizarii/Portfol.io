@@ -71,7 +71,7 @@ export const Hero: React.FC = () => {
   const renderCursor = () => (
     <span
       aria-hidden="true"
-      className="inline-block w-[2px] sm:w-[2.5px] md:w-[3.5px] lg:w-[4px] h-[0.78em] bg-[#EDE8DF] ml-2 sm:ml-3 align-baseline rounded-none animate-cursor-blink"
+      className="inline-block w-[2px] sm:w-[2.5px] md:w-[3.5px] lg:w-[4px] h-[0.78em] bg-[#FFE500] ml-2 sm:ml-3 align-baseline rounded-none animate-cursor-blink"
     />
   );
 

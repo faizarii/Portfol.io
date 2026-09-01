@@ -38,7 +38,7 @@ export const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative w-full bg-[#090B0E] text-white selection:bg-[#EDE8DF] selection:text-[#090B0E] overflow-x-clip">
+    <div className="relative w-full bg-[#00509D] text-white selection:bg-[#FFD166] selection:text-[#002952] overflow-x-clip">
       {/* Interactive Cursor Follower Inverting Lens */}
       <CursorLens />
 

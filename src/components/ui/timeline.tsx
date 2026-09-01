@@ -74,22 +74,22 @@ export const Timeline: React.FC<TimelineProps> = ({
     <div
       ref={containerRef}
       className="relative w-full"
-      style={{ height: `${Math.max(220, data.length * 85)}vh` }}
+      style={{ height: `${Math.max(200, data.length * 80)}vh` }}
     >
       {/* Viewport-Pinned Stage */}
-      <div className="sticky top-0 h-screen w-full flex flex-col justify-center px-4 sm:px-8 md:px-12 lg:px-20 max-w-7xl mx-auto overflow-hidden">
+      <div className="sticky top-0 min-h-screen md:h-screen w-full flex flex-col justify-center py-12 md:py-0 px-4 sm:px-8 md:px-12 lg:px-20 max-w-7xl mx-auto overflow-hidden">
         {/* Section Header */}
         {(heading || subtitle) && (
-          <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+          <div className="mb-4 sm:mb-6 md:mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-3 sm:gap-4">
             <div>
               {heading && (
-                <h2 className="font-hero-display text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[#EDE8DF] leading-[0.92] uppercase mb-2 select-none">
+                <h2 className="font-hero-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-[#FFE500] leading-[0.92] uppercase mb-1.5 sm:mb-2 select-none">
                   {heading}
                 </h2>
               )}
               {subtitle && (
                 <p
-                  className="text-[14px] sm:text-[15px] text-[#A1A7B4] max-w-xl leading-relaxed"
+                  className="text-[13.5px] sm:text-[14.5px] md:text-[15.5px] text-white/95 max-w-xl leading-relaxed"
                   style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
                 >
                   {subtitle}
@@ -98,11 +98,11 @@ export const Timeline: React.FC<TimelineProps> = ({
             </div>
 
             {/* Step Counter Indicator */}
-            <div className="flex items-center gap-3">
-              <span className="text-[12px] font-mono text-[#A1A7B4] tracking-widest uppercase">
+            <div className="flex items-center gap-2.5 sm:gap-3">
+              <span className="text-[11.5px] sm:text-[12px] font-mono text-white/85 tracking-widest uppercase font-medium">
                 {String(activeCard + 1).padStart(2, "0")} / {String(data.length).padStart(2, "0")}
               </span>
-              <div className="flex gap-1.5">
+              <div className="flex gap-1 sm:gap-1.5">
                 {data.map((_, idx) => (
                   <button
                     key={idx}
@@ -111,7 +111,7 @@ export const Timeline: React.FC<TimelineProps> = ({
                     aria-label={`Jump to step ${idx + 1}`}
                     className={`h-1.5 rounded-full transition-all duration-300 ${
                       idx === activeCard
-                        ? "w-6 bg-[#EDE8DF]"
+                        ? "w-5 sm:w-6 bg-[#FFE500]"
                         : "w-2 bg-white/20 hover:bg-white/40"
                     }`}
                   />
@@ -122,14 +122,14 @@ export const Timeline: React.FC<TimelineProps> = ({
         )}
 
         {/* Main Pinned Stage: Left Timeline Spine + Right In-Place Card */}
-        <div className="flex flex-col md:flex-row items-start md:items-center gap-6 sm:gap-10 lg:gap-14 w-full">
+        <div className="flex flex-col md:flex-row items-start md:items-center gap-4 sm:gap-8 md:gap-10 lg:gap-14 w-full">
           {/* Left Timeline Spine */}
-          <div className="relative flex md:flex-col justify-between md:justify-start gap-4 sm:gap-8 md:gap-10 w-full md:w-auto shrink-0 py-2">
+          <div className="relative flex md:flex-col justify-start md:justify-start gap-2.5 sm:gap-4 md:gap-10 w-full md:w-auto shrink-0 py-1 md:py-2 overflow-x-auto no-scrollbar">
             {/* Vertical Connector Line (Desktop) */}
-            <div className="hidden md:block absolute left-[19px] top-4 bottom-4 w-[2px] bg-white/10 -z-0">
+            <div className="hidden md:block absolute left-[19px] top-4 bottom-4 w-[2px] bg-white/15 -z-0">
               {/* Illuminating Active Scroll Beam */}
               <motion.div
-                className="w-full bg-gradient-to-b from-[#EDE8DF] to-white/90 shadow-[0_0_10px_rgba(255,255,255,0.8)]"
+                className="w-full bg-gradient-to-b from-[#FFE500] to-[#FFD166] shadow-[0_0_10px_rgba(255,229,0,0.8)]"
                 style={{
                   height: `${Math.min(100, scrollProgress * 100)}%`,
                 }}
@@ -146,38 +146,40 @@ export const Timeline: React.FC<TimelineProps> = ({
                   key={idx}
                   type="button"
                   onClick={() => jumpToMilestone(idx)}
-                  className="group flex items-center gap-4 text-left transition-all duration-300 focus:outline-none cursor-pointer relative z-10"
+                  className={`group flex items-center gap-2 sm:gap-3 md:gap-4 text-left transition-all duration-300 focus:outline-none cursor-pointer relative z-10 px-2.5 py-1.5 md:px-0 md:py-0 rounded-xl ${
+                    isActive ? "bg-white/[0.08] md:bg-transparent" : ""
+                  }`}
                 >
                   {/* Indicator Dot */}
                   <div
-                    className={`h-10 w-10 rounded-full flex items-center justify-center transition-all duration-300 ${
+                    className={`h-7 w-7 sm:h-8 sm:w-8 md:h-10 md:w-10 rounded-full flex items-center justify-center transition-all duration-300 shrink-0 ${
                       isActive
-                        ? "bg-[#090B0E] border-2 border-[#EDE8DF] shadow-[0_0_15px_rgba(237,232,223,0.5)] scale-110"
+                        ? "bg-[#002952] border-2 border-[#FFE500] shadow-[0_0_15px_rgba(255,229,0,0.5)] scale-105 md:scale-110"
                         : isPast
-                        ? "bg-[#090B0E] border border-[#EDE8DF]/60"
-                        : "bg-[#090B0E] border border-white/20 hover:border-white/40"
+                        ? "bg-[#002952] border border-[#FFE500]/60"
+                        : "bg-[#002952] border border-white/20 hover:border-white/40"
                     }`}
                   >
                     <div
-                      className={`h-3 w-3 rounded-full transition-all duration-300 ${
+                      className={`h-2 w-2 sm:h-2.5 sm:w-2.5 md:h-3 md:w-3 rounded-full transition-all duration-300 ${
                         isActive
-                          ? "bg-[#EDE8DF] shadow-[0_0_8px_rgba(255,255,255,0.9)]"
+                          ? "bg-[#FFE500] shadow-[0_0_8px_rgba(255,229,0,0.9)]"
                           : isPast
-                          ? "bg-[#EDE8DF]/60"
+                          ? "bg-[#FFE500]/60"
                           : "bg-white/20 group-hover:bg-white/40"
                       }`}
                     />
                   </div>
 
                   {/* Milestone Year Label */}
-                  <div className="hidden md:block">
+                  <div className="block whitespace-nowrap">
                     <span
-                      className={`block font-hero-display text-xl sm:text-2xl transition-all duration-300 ${
+                      className={`block font-hero-display text-sm sm:text-base md:text-xl lg:text-2xl transition-all duration-300 ${
                         isActive
-                          ? "text-[#EDE8DF] scale-105"
+                          ? "text-[#FFE500] font-bold"
                           : isPast
-                          ? "text-[#A1A7B4]/70"
-                          : "text-white/30 group-hover:text-white/60"
+                          ? "text-white/80"
+                          : "text-white/45 group-hover:text-white"
                       }`}
                     >
                       {item.title}
@@ -189,7 +191,7 @@ export const Timeline: React.FC<TimelineProps> = ({
           </div>
 
           {/* Right In-Place Card Stage (Does not move, seamlessly crossfades in place) */}
-          <div className="flex-1 w-full min-h-[380px] sm:min-h-[420px] flex items-center">
+          <div className="flex-1 w-full min-h-[300px] sm:min-h-[360px] md:min-h-[420px] flex items-center">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeCard}

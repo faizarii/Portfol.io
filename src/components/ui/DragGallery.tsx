@@ -28,7 +28,7 @@ export function DragGallery({ items, className = "" }: DragGalleryProps) {
         {loopItems.map((item, idx) => (
           <div
             key={`${item.id}-${idx}`}
-            className="relative shrink-0 w-[240px] sm:w-[270px] md:w-[300px] h-[340px] sm:h-[380px] md:h-[420px] rounded-2xl overflow-hidden shadow-2xl bg-neutral-900/40 group/card border border-white/[0.06] hover:border-white/[0.2] transition-all duration-300 transform-gpu"
+            className="relative shrink-0 w-[240px] sm:w-[270px] md:w-[300px] h-[340px] sm:h-[380px] md:h-[420px] rounded-2xl overflow-hidden shadow-2xl bg-[#002F5E]/60 group/card border border-white/[0.1] hover:border-white/[0.25] transition-all duration-300 transform-gpu"
             style={{
               transform: "translateZ(0)",
               backfaceVisibility: "hidden",
@@ -49,17 +49,16 @@ export function DragGallery({ items, className = "" }: DragGalleryProps) {
             />
 
             {/* Subtle gloss sheen on hover */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-white/[0.05] via-transparent to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-white/[0.08] via-transparent to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 pointer-events-none" />
           </div>
         ))}
       </div>
 
-      {/* Soft edge gradient fades for seamless blend */}
-      <div className="absolute inset-y-0 left-0 w-10 sm:w-16 bg-gradient-to-r from-[#090B0E] to-transparent pointer-events-none z-10 opacity-90" />
-      <div className="absolute inset-y-0 right-0 w-10 sm:w-16 bg-gradient-to-l from-[#090B0E] to-transparent pointer-events-none z-10 opacity-90" />
+      {/* Soft edge gradient fades for seamless blend into #00509D background */}
+      <div className="absolute inset-y-0 left-0 w-10 sm:w-16 bg-gradient-to-r from-[#00509D] to-transparent pointer-events-none z-10 opacity-90" />
+      <div className="absolute inset-y-0 right-0 w-10 sm:w-16 bg-gradient-to-l from-[#00509D] to-transparent pointer-events-none z-10 opacity-90" />
     </div>
   );
 }
 
 export default DragGallery;
-

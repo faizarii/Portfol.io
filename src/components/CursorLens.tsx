@@ -57,6 +57,12 @@ export const CursorLens: React.FC = () => {
       observer.observe(heroEl);
     }
 
+    const updateDotPosition = (x: number, y: number) => {
+      if (dotRef.current) {
+        dotRef.current.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
+      }
+    };
+
     const handleMouseMove = (e: MouseEvent) => {
       posRef.current.mouseX = e.clientX;
       posRef.current.mouseY = e.clientY;
@@ -68,10 +74,7 @@ export const CursorLens: React.FC = () => {
         setIsVisible(true);
       }
 
-      // Immediately position center dot with 0 latency
-      if (dotRef.current) {
-        dotRef.current.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
-      }
+      updateDotPosition(e.clientX, e.clientY);
     };
 
     const handleMouseLeave = () => {
@@ -84,8 +87,15 @@ export const CursorLens: React.FC = () => {
       if (posRef.current.hasMoved) setIsVisible(true);
     };
 
-    const handleMouseDown = () => setIsClicked(true);
-    const handleMouseUp = () => setIsClicked(false);
+    const handleMouseDown = () => {
+      setIsClicked(true);
+      updateDotPosition(posRef.current.mouseX, posRef.current.mouseY);
+    };
+
+    const handleMouseUp = () => {
+      setIsClicked(false);
+      updateDotPosition(posRef.current.mouseX, posRef.current.mouseY);
+    };
 
     const handleElementHover = (e: MouseEvent) => {
       const target = e.target as HTMLElement | null;
@@ -209,7 +219,7 @@ export const CursorLens: React.FC = () => {
         aria-hidden="true"
       />
 
-      {/* 2. Precision Cursor Pointer Dot */}
+      {/* 2. Precision Cursor Pointer Dot (No CSS class transform collisions) */}
       <div
         ref={dotRef}
         style={{
@@ -217,10 +227,16 @@ export const CursorLens: React.FC = () => {
         }}
         className={`fixed top-0 left-0 pointer-events-none z-[9999] rounded-full transition-[width,height,opacity,background-color,box-shadow,border-color] duration-150 ease-out ${
           !isLensActive
-            ? `w-2.5 h-2.5 bg-white shadow-[0_0_10px_rgba(255,255,255,0.9)] border border-black/20 ring-2 ring-white/30 ${
-                isHoveredInteractive ? 'w-3.5 h-3.5 ring-white/50 shadow-[0_0_16px_rgba(255,255,255,1)]' : ''
-              } ${isClicked ? 'scale-75' : ''}`
-            : 'w-1.5 h-1.5 bg-[#090B0E]'
+            ? `bg-white shadow-[0_0_10px_rgba(255,255,255,0.9)] border border-black/20 ring-2 ring-white/30 ${
+                isClicked
+                  ? 'w-2 h-2'
+                  : isHoveredInteractive
+                  ? 'w-3.5 h-3.5 ring-white/50 shadow-[0_0_16px_rgba(255,255,255,1)]'
+                  : 'w-2.5 h-2.5'
+              }`
+            : isClicked
+            ? 'w-1 h-1 bg-[#00509D]'
+            : 'w-1.5 h-1.5 bg-[#00509D]'
         }`}
         aria-hidden="true"
       />

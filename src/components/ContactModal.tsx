@@ -82,18 +82,18 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
       {/* Backdrop */}
       <div
         onClick={onClose}
-        className="modal-backdrop fixed inset-0 transition-opacity"
+        className="fixed inset-0 bg-[#001D3D]/80 backdrop-blur-xl transition-opacity"
       />
 
       {/* Modal Card */}
-      <div className="relative w-full max-w-lg bg-[#14171E] border border-white/15 rounded-2xl shadow-2xl p-6 sm:p-8 z-10 overflow-hidden text-white">
+      <div className="relative w-full max-w-lg max-h-[90dvh] overflow-y-auto bg-[#002E5C] border border-white/20 rounded-2xl shadow-2xl p-5 sm:p-8 z-10 text-white">
         {/* Ambient Top Glow */}
-        <div className="absolute -top-24 -right-24 w-48 h-48 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -top-24 -right-24 w-48 h-48 bg-[#FFD166]/10 rounded-full blur-3xl pointer-events-none" />
 
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 p-2 rounded-lg text-neutral-400 hover:text-white hover:bg-white/10 transition-colors"
+          className="absolute top-5 right-5 p-2 rounded-lg text-neutral-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
           aria-label="Close dialog"
         >
           <X className="w-5 h-5" />
@@ -101,14 +101,14 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
 
         {/* Header */}
         <div className="mb-6 pr-8">
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-medium mb-3">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-[#FFD166]/10 border border-[#FFD166]/20 text-[#FFD166] text-xs font-medium mb-3">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#FFD166] animate-pulse" />
             Open for opportunities & connect
           </div>
-          <h3 className="text-2xl font-bold tracking-tight text-white mb-1.5">
+          <h3 className="text-2xl font-bold tracking-tight text-[#FFE500] mb-1.5">
             {contactModal.title}
           </h3>
-          <p className="text-sm text-neutral-400 leading-relaxed">
+          <p className="text-sm text-white/90 leading-relaxed">
             {contactModal.subtitle}
           </p>
         </div>
@@ -118,18 +118,18 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
           {contactModal.socials.map((social: SocialLink, idx: number) => (
             <div
               key={idx}
-              className="flex items-center justify-between p-3.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.07] border border-white/5 hover:border-white/15 transition-all group"
+              className="flex items-center justify-between p-3.5 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 hover:border-white/20 transition-all group"
             >
               {/* Left: Icon & Info */}
               <div className="flex items-center gap-3.5">
-                <div className="p-2 rounded-lg bg-white/5 border border-white/10 text-neutral-300 group-hover:text-white group-hover:bg-white/10 transition-all">
+                <div className="p-2 rounded-lg bg-white/5 border border-white/10 text-white/80 group-hover:text-white group-hover:bg-white/10 transition-all">
                   {getSocialIcon(social.icon)}
                 </div>
                 <div>
-                  <h4 className="text-sm font-semibold text-white">
+                  <h4 className="text-sm font-semibold text-[#FFE500]">
                     {social.name}
                   </h4>
-                  <p className="text-xs text-neutral-400">
+                  <p className="text-xs text-white/80 font-mono">
                     {social.handle}
                   </p>
                 </div>
@@ -140,11 +140,11 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                 {social.copyable && (
                   <button
                     onClick={() => handleCopy(social.handle, idx)}
-                    className="p-2 rounded-lg text-neutral-400 hover:text-white hover:bg-white/10 transition-colors"
+                    className="p-2 rounded-lg text-neutral-300 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
                     title="Copy to clipboard"
                   >
                     {copiedIndex === idx ? (
-                      <Check className="w-4 h-4 text-emerald-400" />
+                      <Check className="w-4 h-4 text-[#FFD166]" />
                     ) : (
                       <Copy className="w-4 h-4" />
                     )}
@@ -152,9 +152,9 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                 )}
                 <a
                   href={social.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white text-white hover:text-black text-xs font-semibold transition-all"
+                  target={social.url.startsWith('mailto:') ? undefined : '_blank'}
+                  rel={social.url.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 hover:bg-[#FFE500] text-white hover:text-[#002952] text-xs font-semibold transition-all"
                 >
                   <span>Visit</span>
                   <ExternalLink className="w-3.5 h-3.5" />
@@ -168,7 +168,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
         <div>
           <a
             href={`mailto:${contactModal.email}`}
-            className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white text-neutral-950 font-semibold text-sm hover:bg-neutral-200 transition-all shadow-lg active:scale-98"
+            className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#FFE500] text-[#002952] font-semibold text-sm hover:bg-[#FFF04D] transition-all shadow-lg active:scale-98"
           >
             <Send className="w-4 h-4" />
             <span>Send Direct Email</span>
@@ -178,3 +178,5 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
     </div>
   );
 };
+
+export default ContactModal;
