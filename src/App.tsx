@@ -10,8 +10,10 @@ import { ProjectsSection } from './components/ProjectsSection';
 import { FooterSection } from './components/FooterSection';
 import { ContactModal } from './components/ContactModal';
 import { CursorLens } from './components/CursorLens';
+import { AnimationLoader } from './components/AnimationLoader';
 
 export const App: React.FC = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const [isContactOpen, setIsContactOpen] = useState(false);
 
   useEffect(() => {
@@ -39,8 +41,8 @@ export const App: React.FC = () => {
 
   return (
     <div className="relative w-full bg-[#00509D] text-white selection:bg-[#FFD166] selection:text-[#002952] overflow-x-clip">
-      {/* Interactive Cursor Follower Inverting Lens */}
-      <CursorLens />
+      {/* Interactive Cursor Follower Inverting Lens (Active only after loading completes) */}
+      {!isLoading && <CursorLens />}
 
       {/* Interactive Silky Atmospheric Background */}
       <BackgroundCanvas />
@@ -74,6 +76,11 @@ export const App: React.FC = () => {
         isOpen={isContactOpen}
         onClose={() => setIsContactOpen(false)}
       />
+
+      {/* Cinematic Intro Preloader Screen */}
+      {isLoading && (
+        <AnimationLoader onComplete={() => setIsLoading(false)} />
+      )}
     </div>
   );
 };

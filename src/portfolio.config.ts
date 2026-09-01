@@ -351,15 +351,15 @@ export const portfolioConfig: PortfolioConfig = {
         ],
       },
       {
-        title: 'Portofol.io',
+        title: 'Portfol.io',
         description: 'Personal developer portfolio showcasing interactive frontend craft, AI projects, and experience.',
         year: '2026',
         link: 'https://github.com/faizarii',
         githubUrl: 'https://github.com/faizarii',
-        category: 'Web & Creative Dev',
+        category: 'Web Development',
         image: 'https://res.cloudinary.com/iaurmiih/image/upload/v1788259683/Screenshot_2026-09-01_174731.png',
         fullDescription:
-          'Portofol.io is a modern personal developer portfolio designed and engineered to showcase software projects, hackathon accomplishments, and technical experiences. Built with React 19, TypeScript, Tailwind CSS, and Framer Motion, the site features kinetic pinned scroll sequences, high-voltage electric contrast typography, custom cursor lens interactions, and fluid responsive layouts across all screen sizes.',
+          'Portfol.io is a modern personal developer portfolio designed and engineered to showcase software projects, hackathon accomplishments, and technical experiences. Built with React 19, TypeScript, Tailwind CSS, and Framer Motion, the site features kinetic pinned scroll sequences, high-voltage electric contrast typography, custom cursor lens interactions, and fluid responsive layouts across all screen sizes.',
         techStack: [
           'React',
           'TypeScript',
