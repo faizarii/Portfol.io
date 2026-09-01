@@ -56,6 +56,7 @@ export const Timeline: React.FC<TimelineProps> = ({
 
   // Jump directly to milestone when clicking left navigation nodes
   const jumpToMilestone = (index: number) => {
+    setActiveCard(index);
     if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
@@ -102,7 +103,14 @@ export const Timeline: React.FC<TimelineProps> = ({
 
           {/* Sequential Experience Items */}
           {data.map((item, idx) => (
-            <div key={idx} className="relative group">
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+              className="relative group"
+            >
               {/* Milestone Indicator Node */}
               <div className="absolute -left-[23px] sm:-left-[27px] top-1.5 h-6 w-6 rounded-full bg-[#002952] border-2 border-[#FFE500] shadow-[0_0_12px_rgba(255,229,0,0.6)] flex items-center justify-center z-10">
                 <div className="h-2 w-2 rounded-full bg-[#FFE500]" />
@@ -119,7 +127,7 @@ export const Timeline: React.FC<TimelineProps> = ({
               <div className="w-full">
                 {item.content}
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -130,7 +138,7 @@ export const Timeline: React.FC<TimelineProps> = ({
       <div
         ref={containerRef}
         className="hidden md:block relative w-full"
-        style={{ height: `${Math.max(200, data.length * 80)}vh` }}
+        style={{ height: `${Math.max(160, data.length * 60)}vh` }}
       >
         {/* Viewport-Pinned Stage */}
         <div className="sticky top-0 h-screen w-full flex flex-col justify-center px-8 md:px-12 lg:px-20 max-w-7xl mx-auto overflow-hidden">
@@ -249,10 +257,13 @@ export const Timeline: React.FC<TimelineProps> = ({
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeCard}
-                  initial={{ opacity: 0, y: 15, filter: "blur(4px)" }}
-                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                  exit={{ opacity: 0, y: -15, filter: "blur(4px)" }}
-                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                  initial={{ opacity: 0, y: 22, scale: 0.98 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -22, scale: 0.98 }}
+                  transition={{
+                    duration: 0.38,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
                   className="w-full"
                 >
                   {data[activeCard].content}

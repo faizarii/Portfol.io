@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { portfolioConfig } from '../portfolio.config';
 import { DragGallery } from './ui/DragGallery';
 import { useScroll, motion, useTransform } from 'framer-motion';
@@ -6,6 +6,16 @@ import { useScroll, motion, useTransform } from 'framer-motion';
 export const AboutSection: React.FC = () => {
   const { about } = portfolioConfig;
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // Preload all gallery images into browser cache
+  useEffect(() => {
+    if (about?.gallery) {
+      about.gallery.forEach((item) => {
+        const img = new Image();
+        img.src = item.image;
+      });
+    }
+  }, [about]);
 
   // Monitor scroll progress through the dedicated About scroll track (on desktop)
   const { scrollYProgress } = useScroll({

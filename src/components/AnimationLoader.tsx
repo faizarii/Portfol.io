@@ -8,7 +8,7 @@ interface AnimationLoaderProps {
 
 export const AnimationLoader: React.FC<AnimationLoaderProps> = ({
   onComplete,
-  duration = 2.4,
+  duration = 1.1,
 }) => {
   const [displayCount, setDisplayCount] = useState(1);
   const [isFinished, setIsFinished] = useState(false);
@@ -58,12 +58,12 @@ export const AnimationLoader: React.FC<AnimationLoaderProps> = ({
           initial={{ y: 0 }}
           exit={{
             y: '-100%',
-            borderBottomLeftRadius: ['0%', '35%', '0%'],
-            borderBottomRightRadius: ['0%', '35%', '0%'],
+            borderBottomLeftRadius: ['0%', '30%', '0%'],
+            borderBottomRightRadius: ['0%', '30%', '0%'],
             transition: {
-              duration: 0.85,
+              duration: 0.55,
               ease: [0.77, 0, 0.175, 1],
-              delay: 0.28,
+              delay: 0.1,
             },
           }}
           className="fixed inset-0 z-[100000] flex flex-col justify-between p-6 sm:p-10 md:p-14 bg-[#00509D] text-[#FFE500] select-none pointer-events-auto overscroll-none overflow-hidden"

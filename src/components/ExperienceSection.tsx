@@ -8,6 +8,18 @@ export const ExperienceSection: React.FC = () => {
   const { experiences } = portfolioConfig;
   const [selectedImage, setSelectedImage] = useState<{ src: string; alt: string } | null>(null);
 
+  // Preload all experience images for instantaneous rendering
+  useEffect(() => {
+    if (experiences?.items) {
+      experiences.items.forEach((item) => {
+        item.images?.forEach((img) => {
+          const imageObj = new Image();
+          imageObj.src = img.src;
+        });
+      });
+    }
+  }, [experiences]);
+
   // Lock background body scroll & handle Escape key when lightbox is open
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -39,7 +51,7 @@ export const ExperienceSection: React.FC = () => {
     content: (
       <div className="w-full">
         {/* Unified Experience Card in Deep Blue Glassmorphic Palette */}
-        <div className="bg-[#00386C]/90 backdrop-blur-2xl border border-white/[0.16] hover:border-white/[0.3] rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 transition-all duration-300 shadow-[0_30px_70px_-20px_rgba(0,20,50,0.8)]">
+        <div className="bg-[#00386C]/90 backdrop-blur-2xl border border-white/[0.16] hover:border-white/[0.3] rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 transition-colors duration-300 shadow-[0_30px_70px_-20px_rgba(0,20,50,0.8)]">
           {/* Header: Role & Organization */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 pb-4 sm:pb-5 border-b border-white/[0.12]">
             <div>
@@ -132,8 +144,10 @@ export const ExperienceSection: React.FC = () => {
                     <img
                       src={img.src}
                       alt={img.alt}
+                      loading="eager"
+                      decoding="async"
                       draggable={false}
-                      className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 group-hover:brightness-105"
+                      className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 group-hover:brightness-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#002952]/70 via-transparent to-transparent pointer-events-none" />
 

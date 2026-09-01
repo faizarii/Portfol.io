@@ -190,10 +190,10 @@ export const portfolioConfig: PortfolioConfig = {
       'Deep Learning',
     ],
     gallery: [
-      { id: 1, image: 'https://res.cloudinary.com/iaurmiih/image/upload/v1788246800/gallery-1.jpg' },
-      { id: 2, image: 'https://res.cloudinary.com/iaurmiih/image/upload/v1788246876/gallery-2.jpg' },
-      { id: 3, image: 'https://res.cloudinary.com/iaurmiih/image/upload/v1788246800/gallery-3.jpg' },
-      { id: 4, image: 'https://res.cloudinary.com/iaurmiih/image/upload/v1788246876/gallery-4.jpg' },
+      { id: 1, image: 'https://res.cloudinary.com/iaurmiih/image/upload/f_auto,q_auto,w_800/v1788246800/gallery-1.jpg' },
+      { id: 2, image: 'https://res.cloudinary.com/iaurmiih/image/upload/f_auto,q_auto,w_800/v1788246876/gallery-2.jpg' },
+      { id: 3, image: 'https://res.cloudinary.com/iaurmiih/image/upload/f_auto,q_auto,w_800/v1788246800/gallery-3.jpg' },
+      { id: 4, image: 'https://res.cloudinary.com/iaurmiih/image/upload/f_auto,q_auto,w_800/v1788246876/gallery-4.jpg' },
     ],
   },
 
@@ -217,8 +217,8 @@ export const portfolioConfig: PortfolioConfig = {
         ],
         skills: ['Technical Support', 'Communication', 'Time Management'],
         images: [
-          { src: 'https://res.cloudinary.com/iaurmiih/image/upload/v1788246800/gallery-1.jpg', alt: 'HISHOT 2025' },
-          { src: 'https://res.cloudinary.com/iaurmiih/image/upload/v1788246800/gallery-3.jpg', alt: 'HILET 2025' },
+          { src: 'https://res.cloudinary.com/iaurmiih/image/upload/f_auto,q_auto,w_600/v1788246800/gallery-1.jpg', alt: 'HISHOT 2025' },
+          { src: 'https://res.cloudinary.com/iaurmiih/image/upload/f_auto,q_auto,w_600/v1788246800/gallery-3.jpg', alt: 'HILET 2025' },
         ],
       },
       {
@@ -236,8 +236,8 @@ export const portfolioConfig: PortfolioConfig = {
         ],
         skills: ['Problem Solving', 'AI/ML', 'Time Management'],
         images: [
-          { src: 'https://res.cloudinary.com/iaurmiih/image/upload/f_auto,q_auto/image22', alt: 'Hackathon Documentation' },
-          { src: 'https://res.cloudinary.com/iaurmiih/image/upload/v1788246663/hackathon-certificate.jpg', alt: 'Hackathon Certificate' },
+          { src: 'https://res.cloudinary.com/iaurmiih/image/upload/f_auto,q_auto,w_600/image22', alt: 'Hackathon Documentation' },
+          { src: 'https://res.cloudinary.com/iaurmiih/image/upload/f_auto,q_auto,w_600/v1788246663/hackathon-certificate.jpg', alt: 'Hackathon Certificate' },
         ],
       },
       {
@@ -253,7 +253,7 @@ export const portfolioConfig: PortfolioConfig = {
         ],
         skills: ['In Progress', 'Coming Soon', 'Ideation', 'Prototyping', 'Product Design'],
         images: [
-          { src: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&auto=format&fit=crop&q=80', alt: 'Venture Creation In Progress' },
+          { src: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&auto=format&fit=crop&q=80', alt: 'Venture Creation In Progress' },
         ],
       },
     ],
