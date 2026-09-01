@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { portfolioConfig, SocialLink } from '../portfolio.config';
 import {
   X,
@@ -36,6 +37,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
   }, [isOpen, onClose]);
 
   if (!isOpen) return null;
+  if (typeof document === 'undefined') return null;
 
   const handleCopy = (text: string, index: number) => {
     navigator.clipboard.writeText(text);
@@ -77,23 +79,23 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
     }
   };
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 animate-fadeIn">
-      {/* Backdrop */}
+  return createPortal(
+    <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4 sm:p-6 animate-fadeIn">
+      {/* Heavy Frosted Glass Backdrop Blur */}
       <div
         onClick={onClose}
-        className="fixed inset-0 bg-[#001D3D]/80 backdrop-blur-xl transition-opacity"
+        className="fixed inset-0 bg-[#001833]/70 backdrop-blur-[40px] transition-opacity touch-none"
       />
 
       {/* Modal Card */}
-      <div className="relative w-full max-w-lg max-h-[90dvh] overflow-y-auto bg-[#002E5C] border border-white/20 rounded-2xl shadow-2xl p-5 sm:p-8 z-10 text-white">
+      <div className="relative w-full max-w-lg max-h-[90dvh] overflow-y-auto bg-[#002E5C] border border-white/20 rounded-2xl shadow-[0_30px_90px_rgba(0,10,30,0.95)] p-5 sm:p-8 z-10 text-white">
         {/* Ambient Top Glow */}
         <div className="absolute -top-24 -right-24 w-48 h-48 bg-[#FFD166]/10 rounded-full blur-3xl pointer-events-none" />
 
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 p-2 rounded-lg text-neutral-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+          className="absolute top-4 right-4 sm:top-5 sm:right-5 p-2 rounded-lg text-neutral-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
           aria-label="Close dialog"
         >
           <X className="w-5 h-5" />
@@ -101,8 +103,8 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
 
         {/* Header */}
         <div className="mb-6 pr-8">
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-[#FFD166]/10 border border-[#FFD166]/20 text-[#FFD166] text-xs font-medium mb-3">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#FFD166] animate-pulse" />
+          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-[#FFE500]/15 border border-[#FFE500]/30 text-[#FFE500] text-xs font-medium mb-3">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#FFE500] animate-pulse" />
             Open for opportunities & connect
           </div>
           <h3 className="text-2xl font-bold tracking-tight text-[#FFE500] mb-1.5">
@@ -175,8 +177,10 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
           </a>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 
 export default ContactModal;
+

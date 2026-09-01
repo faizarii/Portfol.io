@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
+import { createPortal } from "react-dom";
 import {
   ArrowUpRight,
   ExternalLink,
@@ -364,20 +365,20 @@ export function ProjectShowcase({
       </section>
 
       {/* ========================================================================= */}
-      {/* DETAILED PROJECT MODAL / CARD                                             */}
+      {/* DETAILED PROJECT MODAL / CARD (MOUNTED DIRECTLY TO DOCUMENT.BODY)         */}
       {/* ========================================================================= */}
-      {selectedProject && (
+      {selectedProject && typeof document !== "undefined" && createPortal(
         <div
           data-no-cursor-lens="true"
           data-lenis-prevent="true"
           onWheel={(e) => e.stopPropagation()}
           onTouchMove={(e) => e.stopPropagation()}
-          className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 md:p-8 overscroll-contain"
+          className="fixed inset-0 z-[99999] flex items-center justify-center p-3 sm:p-6 md:p-8 overscroll-contain"
         >
-          {/* Backdrop Blur Layer */}
+          {/* Heavy Frosted Glass Backdrop Blur - Completely diffuses background text into an illegible soft bokeh */}
           <div
             onClick={handleCloseModal}
-            className="fixed inset-0 bg-[#001D3D]/80 backdrop-blur-xl transition-opacity animate-fadeIn"
+            className="fixed inset-0 bg-[#001833]/70 backdrop-blur-[40px] transition-opacity animate-fadeIn touch-none"
             aria-hidden="true"
           />
 
@@ -390,7 +391,7 @@ export function ProjectShowcase({
             data-lenis-prevent="true"
             onWheel={(e) => e.stopPropagation()}
             onTouchMove={(e) => e.stopPropagation()}
-            className="relative w-full max-w-2xl max-h-[88dvh] overflow-y-auto overscroll-contain bg-[#002E5C] border border-white/20 rounded-2xl sm:rounded-3xl shadow-[0_30px_90px_rgba(0,20,50,0.95)] z-10 text-white flex flex-col focus:outline-none"
+            className="relative w-full max-w-2xl max-h-[88dvh] overflow-y-auto overscroll-contain bg-[#002E5C] border border-white/20 rounded-2xl sm:rounded-3xl shadow-[0_30px_90px_rgba(0,10,30,0.95)] z-10 text-white flex flex-col focus:outline-none"
           >
             {/* Top Close Button */}
             <button
@@ -502,7 +503,8 @@ export function ProjectShowcase({
                 )}
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );

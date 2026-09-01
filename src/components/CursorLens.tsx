@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { portfolioConfig } from '../portfolio.config';
 
 interface MorphTarget {
@@ -145,7 +146,7 @@ export const CursorLens: React.FC = () => {
     window.addEventListener('mouseup', handleMouseUp);
     window.addEventListener('mouseover', handleElementHover, { passive: true });
 
-    // Smooth Lerp loop for the filled inversion lens with magnetic suction
+    // Smooth Lerp loop for the filled inversion lens & persistent dot positioning
     const animate = () => {
       const pos = posRef.current;
       const morph = morphRef.current;
@@ -166,6 +167,11 @@ export const CursorLens: React.FC = () => {
         lensRef.current.style.transform = `translate3d(${pos.lensX}px, ${pos.lensY}px, 0) translate(-50%, -50%)`;
       }
 
+      // Continuous RAF positioning prevents React re-render reconciliation from dropping the cursor dot
+      if (dotRef.current && pos.hasMoved) {
+        dotRef.current.style.transform = `translate3d(${pos.mouseX}px, ${pos.mouseY}px, 0) translate(-50%, -50%)`;
+      }
+
       animationFrameId = requestAnimationFrame(animate);
     };
 
@@ -184,6 +190,7 @@ export const CursorLens: React.FC = () => {
   }, []);
 
   if (!portfolioConfig.lens.enabled) return null;
+  if (typeof document === 'undefined') return null;
 
   const isLensActive = isVisible && isInHero && !isLensDisabled;
   const isMorphed = Boolean(morphTarget && isLensActive);
@@ -205,7 +212,7 @@ export const CursorLens: React.FC = () => {
     ? size * 0.85
     : size;
 
-  return (
+  return createPortal(
     <>
       {/* 1. Large Fluid Inversion Circle / Morphing Pill Lens (Active solely in the Hero section) */}
       <div
@@ -215,17 +222,17 @@ export const CursorLens: React.FC = () => {
           height: lensHeight,
           opacity: isLensActive ? 1 : 0,
         }}
-        className="fixed top-0 left-0 pointer-events-none z-[9998] rounded-full bg-white transition-[width,height,opacity] duration-300 cubic-bezier(0.16,1,0.3,1) mix-blend-difference"
+        className="fixed top-0 left-0 pointer-events-none z-[999998] rounded-full bg-white transition-[width,height,opacity] duration-300 cubic-bezier(0.16,1,0.3,1) mix-blend-difference"
         aria-hidden="true"
       />
 
-      {/* 2. Precision Cursor Pointer Dot (No CSS class transform collisions) */}
+      {/* 2. Precision Cursor Pointer Dot (Persistent 60fps positioning at top-most z-index) */}
       <div
         ref={dotRef}
         style={{
           opacity: isVisible && !isMorphed ? 1 : 0,
         }}
-        className={`fixed top-0 left-0 pointer-events-none z-[9999] rounded-full transition-[width,height,opacity,background-color,box-shadow,border-color] duration-150 ease-out ${
+        className={`fixed top-0 left-0 pointer-events-none z-[999999] rounded-full transition-[width,height,opacity,background-color,box-shadow,border-color] duration-150 ease-out ${
           !isLensActive
             ? `bg-white shadow-[0_0_10px_rgba(255,255,255,0.9)] border border-black/20 ring-2 ring-white/30 ${
                 isClicked
@@ -240,7 +247,8 @@ export const CursorLens: React.FC = () => {
         }`}
         aria-hidden="true"
       />
-    </>
+    </>,
+    document.body
   );
 };
 
