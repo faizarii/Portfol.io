@@ -76,7 +76,7 @@ export const App: React.FC = () => {
         <Navbar onOpenContact={() => setIsContactOpen(true)} />
 
         {/* Center Hero with Condensed Typography & Positioned Photo Card */}
-        <Hero />
+        <Hero startTyping={!isLoading} />
 
         {/* Bottom Hero Metadata & Status */}
         <FooterInfo />

@@ -8,8 +8,9 @@ interface AnimationLoaderProps {
 
 export const AnimationLoader: React.FC<AnimationLoaderProps> = ({
   onComplete,
-  duration = 1.1,
+  duration = 1.2,
 }) => {
+  const [isStarted, setIsStarted] = useState(false);
   const [displayCount, setDisplayCount] = useState(1);
   const [isFinished, setIsFinished] = useState(false);
 
@@ -23,8 +24,62 @@ export const AnimationLoader: React.FC<AnimationLoaderProps> = ({
     // Lock body scroll during intro loader
     document.body.style.overflow = 'hidden';
 
-    // Start progress & count-up firmly to 100
-    countValue.set(100);
+    let isMounted = true;
+    let fallbackTimer: NodeJS.Timeout;
+    let startTimer: NodeJS.Timeout;
+
+    const startLoading = () => {
+      if (!isMounted) return;
+      startTimer = setTimeout(() => {
+        if (!isMounted) return;
+        setIsStarted(true);
+        countValue.set(100);
+      }, 100);
+    };
+
+    const waitForPageLoad = async () => {
+      // 1. Wait for window load event if document is not yet complete
+      if (document.readyState !== 'complete') {
+        await new Promise<void>((resolve) => {
+          const onWindowLoad = () => {
+            window.removeEventListener('load', onWindowLoad);
+            resolve();
+          };
+          window.addEventListener('load', onWindowLoad, { once: true });
+        });
+      }
+
+      // 2. Wait for web fonts (e.g., Anton, Bebas Neue) to be fully decoded
+      if (document.fonts && document.fonts.ready) {
+        try {
+          await document.fonts.ready;
+        } catch {
+          // ignore font loading error and proceed
+        }
+      }
+
+      startLoading();
+    };
+
+    waitForPageLoad();
+
+    // Safety fallback: start animation after 2.5s maximum if anything stalls
+    fallbackTimer = setTimeout(() => {
+      if (isMounted) {
+        startLoading();
+      }
+    }, 2500);
+
+    return () => {
+      isMounted = false;
+      clearTimeout(fallbackTimer);
+      clearTimeout(startTimer);
+      document.body.style.overflow = '';
+    };
+  }, [countValue]);
+
+  useEffect(() => {
+    if (!isStarted) return;
 
     const unsubscribe = springCount.on('change', (latest) => {
       const rounded = Math.round(latest);
@@ -33,15 +88,16 @@ export const AnimationLoader: React.FC<AnimationLoaderProps> = ({
 
       if (rounded >= 100 && !isFinished) {
         setDisplayCount(100);
-        setIsFinished(true);
+        setTimeout(() => {
+          setIsFinished(true);
+        }, 120);
       }
     });
 
     return () => {
       unsubscribe();
-      document.body.style.overflow = '';
     };
-  }, [countValue, springCount, isFinished]);
+  }, [isStarted, springCount, isFinished]);
 
   const handleExitComplete = () => {
     document.body.style.overflow = '';
@@ -79,7 +135,7 @@ export const AnimationLoader: React.FC<AnimationLoaderProps> = ({
             <div className="w-full h-[2px] sm:h-[3px] bg-white/15 relative overflow-hidden rounded-full">
               <motion.div
                 initial={{ width: '0%' }}
-                animate={{ width: '100%' }}
+                animate={{ width: isStarted ? '100%' : '0%' }}
                 transition={{
                   duration: duration,
                   ease: [0.12, 0.23, 0.5, 1],

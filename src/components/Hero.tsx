@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { portfolioConfig } from '../portfolio.config';
 import { AvatarCard } from './AvatarCard';
 
-export const Hero: React.FC = () => {
+interface HeroProps {
+  startTyping?: boolean;
+}
+
+export const Hero: React.FC<HeroProps> = ({ startTyping = false }) => {
   const { hero, avatar } = portfolioConfig;
 
   const [displayedFirstName, setDisplayedFirstName] = useState('');
@@ -12,13 +16,18 @@ export const Hero: React.FC = () => {
   const [isDone, setIsDone] = useState(false);
 
   useEffect(() => {
+    // Only begin typing when startTyping is enabled (post-loader reveal)
+    if (!startTyping) {
+      return;
+    }
+
     let timeoutId: NodeJS.Timeout;
     const firstName = hero.firstName || '';
     const lastName = hero.lastName || '';
     const thirdLine = hero.thirdLine || '';
 
     const typeSpeed = 75; // ms per character
-    const linePause = 160; // ms pause before moving to the next line
+    const linePause = 180; // ms pause before moving to the next line
 
     let lineIndex = 1;
     let charIndex = 0;
@@ -61,11 +70,11 @@ export const Hero: React.FC = () => {
       }
     };
 
-    // Initial short pause before starting typing animation
-    timeoutId = setTimeout(typeNextChar, 250);
+    // Initial pause after hero is revealed before starting typing animation
+    timeoutId = setTimeout(typeNextChar, 300);
 
     return () => clearTimeout(timeoutId);
-  }, [hero.firstName, hero.lastName, hero.thirdLine]);
+  }, [startTyping, hero.firstName, hero.lastName, hero.thirdLine]);
 
   // Render the blinking cursor line - perfectly level with Anton font cap height (0.78em) and baseline
   const renderCursor = () => (

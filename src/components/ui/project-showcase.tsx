@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowUpRight,
   ExternalLink,
@@ -367,40 +368,57 @@ export function ProjectShowcase({
       {/* ========================================================================= */}
       {/* DETAILED PROJECT MODAL / CARD (MOUNTED DIRECTLY TO DOCUMENT.BODY)         */}
       {/* ========================================================================= */}
-      {selectedProject && typeof document !== "undefined" && createPortal(
-        <div
-          data-no-cursor-lens="true"
-          data-lenis-prevent="true"
-          onWheel={(e) => e.stopPropagation()}
-          onTouchMove={(e) => e.stopPropagation()}
-          className="fixed inset-0 z-[99999] flex items-center justify-center p-3 sm:p-6 md:p-8 overscroll-contain"
-        >
-          {/* Heavy Frosted Glass Backdrop Blur - Completely diffuses background text into an illegible soft bokeh */}
-          <div
-            onClick={handleCloseModal}
-            className="fixed inset-0 bg-[#001833]/70 backdrop-blur-[40px] transition-opacity animate-fadeIn touch-none"
-            aria-hidden="true"
-          />
-
-          {/* Project Detail Card - Enabled for smooth mouse wheel and touch scrolling */}
-          <div
-            role="dialog"
-            aria-modal="true"
-            aria-label={selectedProject.title}
-            data-no-cursor-lens="true"
-            data-lenis-prevent="true"
-            onWheel={(e) => e.stopPropagation()}
-            onTouchMove={(e) => e.stopPropagation()}
-            className="relative w-full max-w-2xl max-h-[88dvh] overflow-y-auto overscroll-contain bg-[#002E5C] border border-white/20 rounded-2xl sm:rounded-3xl shadow-[0_30px_90px_rgba(0,10,30,0.95)] z-10 text-white flex flex-col focus:outline-none"
-          >
-            {/* Top Close Button */}
-            <button
-              onClick={handleCloseModal}
-              aria-label="Close project modal"
-              className="absolute top-3 right-3 sm:top-4 sm:right-4 z-20 p-2 sm:p-2.5 rounded-full bg-black/60 hover:bg-[#FFE500] text-white hover:text-[#002952] border border-white/15 transition-all duration-200 shadow-lg cursor-pointer"
+      {typeof document !== "undefined" && createPortal(
+        <AnimatePresence>
+          {selectedProject && (
+            <div
+              key="project-modal-wrapper"
+              data-no-cursor-lens="true"
+              data-lenis-prevent="true"
+              onWheel={(e) => e.stopPropagation()}
+              onTouchMove={(e) => e.stopPropagation()}
+              className="fixed inset-0 z-[99999] flex items-center justify-center p-3 sm:p-6 md:p-8 overscroll-contain"
             >
-              <X className="w-4 h-4 sm:w-5 sm:h-5" />
-            </button>
+              {/* Heavy Frosted Glass Backdrop Blur */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
+                onClick={handleCloseModal}
+                className="fixed inset-0 bg-[#001833]/70 backdrop-blur-[40px] touch-none cursor-pointer"
+                aria-hidden="true"
+              />
+
+              {/* Project Detail Card - Smooth subtle scale and lift animation */}
+              <motion.div
+                role="dialog"
+                aria-modal="true"
+                aria-label={selectedProject.title}
+                data-no-cursor-lens="true"
+                data-lenis-prevent="true"
+                tabIndex={-1}
+                initial={{ opacity: 0, scale: 0.95, y: 14 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.96, y: 10 }}
+                transition={{
+                  duration: 0.24,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+                onWheel={(e) => e.stopPropagation()}
+                onTouchMove={(e) => e.stopPropagation()}
+                className="relative w-full max-w-2xl max-h-[88dvh] overflow-y-auto overscroll-contain bg-[#002E5C] border border-white/20 rounded-2xl sm:rounded-3xl shadow-[0_30px_90px_rgba(0,10,30,0.95)] z-10 text-white flex flex-col focus:outline-none"
+              >
+                {/* Top Close Button */}
+                <motion.button
+                  whileHover={{ scale: 1.06 }}
+                  whileTap={{ scale: 0.94 }}
+                  onClick={handleCloseModal}
+                  aria-label="Close project modal"
+                  className="absolute top-3 right-3 sm:top-4 sm:right-4 z-20 p-2 sm:p-2.5 rounded-full bg-black/60 hover:bg-[#FFE500] text-white hover:text-[#002952] border border-white/15 transition-colors duration-200 shadow-lg cursor-pointer"
+                >
+                  <X className="w-4 h-4 sm:w-5 sm:h-5" />
+                </motion.button>
 
             {/* Modal Big Hero Image on Top */}
             <div className="relative w-full h-44 sm:h-60 md:h-72 bg-black/40 overflow-hidden shrink-0 border-b border-white/[0.1]">
@@ -502,10 +520,12 @@ export function ProjectShowcase({
                   </div>
                 )}
             </div>
-          </div>
-        </div>,
-        document.body
+          </motion.div>
+        </div>
       )}
+    </AnimatePresence>,
+    document.body
+  )}
     </>
   );
 }
