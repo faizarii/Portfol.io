@@ -30,14 +30,12 @@ export const CursorLens: React.FC = () => {
   });
 
   const size = portfolioConfig.lens.size || 56;
+  const isMobilePointer =
+    typeof window !== 'undefined' &&
+    window.matchMedia('(hover: none), (pointer: coarse)').matches;
 
   useEffect(() => {
-    if (!portfolioConfig.lens.enabled) return;
-
-    // Disable custom cursor on touch/pointer-coarse devices
-    if (window.matchMedia('(pointer: coarse)').matches) {
-      return;
-    }
+    if (!portfolioConfig.lens.enabled || isMobilePointer) return;
 
     let animationFrameId: number;
 
@@ -189,7 +187,7 @@ export const CursorLens: React.FC = () => {
     };
   }, []);
 
-  if (!portfolioConfig.lens.enabled) return null;
+  if (!portfolioConfig.lens.enabled || isMobilePointer) return null;
   if (typeof document === 'undefined') return null;
 
   const isLensActive = isVisible && isInHero && !isLensDisabled;

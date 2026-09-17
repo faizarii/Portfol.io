@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Download } from 'lucide-react';
 import { portfolioConfig } from '../portfolio.config';
 import { AvatarCard } from './AvatarCard';
 
@@ -7,7 +8,7 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ startTyping = false }) => {
-  const { hero, avatar } = portfolioConfig;
+  const { hero, avatar, ctaButton } = portfolioConfig;
 
   const [displayedFirstName, setDisplayedFirstName] = useState('');
   const [displayedLastName, setDisplayedLastName] = useState('');
@@ -120,6 +121,19 @@ export const Hero: React.FC<HeroProps> = ({ startTyping = false }) => {
                   <span>{displayedThirdLine}</span>
                   {(activeLine === 3 || isDone) && renderCursor()}
                 </h1>
+              )}
+
+              {/* Mobile-only CV Download, centered below the name */}
+              {ctaButton.actionType === 'download' && (
+                <a
+                  href={ctaButton.fileUrl || '/cv.pdf'}
+                  download={ctaButton.downloadFileName || 'Faiz_Ari_Fadhilah_CV.pdf'}
+                  className="md:hidden inline-flex items-center gap-2 mt-6 px-5 py-2.5 rounded-xl bg-[#FFE500] hover:bg-[#FFF04D] text-[#002952] text-sm font-bold shadow-lg transition-colors"
+                  style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+                >
+                  <Download className="w-4 h-4 shrink-0" />
+                  <span>{ctaButton.label}</span>
+                </a>
               )}
             </div>
           </div>

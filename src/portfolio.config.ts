@@ -265,6 +265,29 @@ export const portfolioConfig: PortfolioConfig = {
     subtitle: 'A curation of software systems, AI pipelines, and interactive digital products.',
     items: [
       {
+        title: 'VolumeMate',
+        description: 'AI-powered smart fertilizer procurement and demand forecasting platform.',
+        year: '2026',
+        link: '',
+        category: 'AI & Machine Learning',
+        image: 'https://github.com/user-attachments/assets/101ce318-0590-4438-8e7c-d7566b0f95c3',
+        fullDescription:
+          'VolumeMate is a smart procurement platform for agricultural cooperatives that digitizes fertilizer inventory, forecasts future demand, and optimizes collective purchasing. As the AI/ML Engineer, I built VolumeMind: a FastAPI-based intelligence engine powered by a Random Forest model that predicts monthly fertilizer demand from historical transactions, rainfall, and planting-season data, then recommends cost-efficient purchase volumes by evaluating supplier price tiers.',
+        techStack: [
+          'Python',
+          'FastAPI',
+          'Scikit-learn',
+          'Pandas',
+          'Random Forest',
+          'Joblib',
+        ],
+        highlights: [
+          'VolumeMind AI Engine: Designed and built the machine learning service used for fertilizer demand forecasting.',
+          'Demand Forecasting Model: Trained a Random Forest model using historical demand, rainfall, and planting-season features.',
+          'Purchase Optimization: Built recommendation logic that finds cheaper supplier tiers when slightly larger orders reduce total procurement cost.',
+        ],
+      },
+      {
         title: 'Colr',
         description: 'Deep Learning image colorization using Pix2Pix cGAN.',
         year: '2025',
