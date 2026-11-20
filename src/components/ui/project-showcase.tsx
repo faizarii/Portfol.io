@@ -17,98 +17,20 @@ export interface Project {
   description: string;
   link: string;
   image: string;
-  year?: string;
   category?: string;
   fullDescription?: string;
   techStack?: string[];
-  highlights?: string[];
-  gallery?: string[];
   githubUrl?: string;
 }
 
-export const defaultProjects: Project[] = [
-  {
-    title: "Lumina",
-    description: "AI-powered design system generator.",
-    link: "https://github.com/faizarii",
-    githubUrl: "https://github.com/faizarii",
-    category: "AI & Design Engineering",
-    image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop",
-    fullDescription:
-      "Lumina transforms high-level product intent into complete, production-ready design systems. By combining multi-modal LLMs with strict design token schemas, Lumina generates accessible color palettes, modular typography scales, spacing grids, and Tailwind CSS configuration files in milliseconds.",
-    techStack: [
-      "Next.js 15",
-      "TypeScript",
-      "Tailwind CSS",
-      "OpenAI API",
-      "Radix UI",
-      "Zustand",
-    ],
-  },
-  {
-    title: "Flux",
-    description: "Real-time collaboration for creative teams.",
-    link: "https://github.com/faizarii",
-    githubUrl: "https://github.com/faizarii",
-    category: "Full-Stack Web & Real-Time",
-    image: "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?q=80&w=1200&auto=format&fit=crop",
-    fullDescription:
-      "Flux is a low-latency collaborative workspace engineered for distributed product designers and engineers. Featuring an ultra-fast CRDT-backed sync engine, interactive canvas multi-cursor presence, real-time voice huddles, and version-controlled asset branching.",
-    techStack: [
-      "React",
-      "Node.js",
-      "WebSockets",
-      "WebRTC",
-      "Yjs CRDT",
-      "PostgreSQL",
-      "Docker",
-    ],
-  },
-  {
-    title: "Vortex",
-    description: "High-performance data visualization engine.",
-    link: "https://github.com/faizarii",
-    githubUrl: "https://github.com/faizarii",
-    category: "Data & Computer Vision",
-    image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1200&auto=format&fit=crop",
-    fullDescription:
-      "Vortex visualizes multi-million record temporal datasets directly inside client browsers using custom WebGL shaders and GPU-accelerated computing pipelines. Delivers constant 60 FPS interactive querying, geospatial clustering, and automated statistical anomaly detection.",
-    techStack: [
-      "Three.js",
-      "WebGL",
-      "TypeScript",
-      "D3.js",
-      "WebAssembly",
-      "Rust",
-    ],
-  },
-  {
-    title: "Echo",
-    description: "Spatial audio experiences for the web.",
-    link: "https://github.com/faizarii",
-    githubUrl: "https://github.com/faizarii",
-    category: "Audio & Machine Learning",
-    image: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=1200&auto=format&fit=crop",
-    fullDescription:
-      "Echo brings true 3D spatial acoustics to browser environments through the Web Audio API and real-time head-related transfer function (HRTF) convolution algorithms. Used for virtual acoustic spaces, immersive gaming simulations, and interactive audio storytelling.",
-    techStack: [
-      "Web Audio API",
-      "TypeScript",
-      "PyTorch",
-      "Tailwind CSS",
-      "Canvas 2D",
-    ],
-  },
-];
-
 interface ProjectShowcaseProps {
-  projects?: Project[];
+  projects: Project[];
   title?: string;
   subtitle?: string;
 }
 
 export function ProjectShowcase({
-  projects = defaultProjects,
+  projects,
   title,
   subtitle,
 }: ProjectShowcaseProps) {

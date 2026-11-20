@@ -8,13 +8,11 @@ import { AboutSection } from './components/AboutSection';
 import { ExperienceSection } from './components/ExperienceSection';
 import { ProjectsSection } from './components/ProjectsSection';
 import { FooterSection } from './components/FooterSection';
-import { ContactModal } from './components/ContactModal';
 import { CursorLens } from './components/CursorLens';
 import { AnimationLoader } from './components/AnimationLoader';
 
 export const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [isContactOpen, setIsContactOpen] = useState(false);
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
@@ -73,7 +71,7 @@ export const App: React.FC = () => {
       {/* 1. HERO VIEWPORT: Full-screen landing with Navbar, Hero, and Footer status bar */}
       <section id="hero" className="relative min-h-[100dvh] w-full flex flex-col justify-between overflow-x-hidden select-none">
         {/* Top Navigation */}
-        <Navbar onOpenContact={() => setIsContactOpen(true)} />
+        <Navbar />
 
         {/* Center Hero with Condensed Typography & Positioned Photo Card */}
         <Hero startTyping={!isLoading} />
@@ -93,12 +91,6 @@ export const App: React.FC = () => {
 
       {/* 5. FOOTER & CONTACT SECTION */}
       <FooterSection />
-
-      {/* Interactive Social Media & Contact Dialog */}
-      <ContactModal
-        isOpen={isContactOpen}
-        onClose={() => setIsContactOpen(false)}
-      />
 
       {/* Cinematic Intro Preloader Screen */}
       {isLoading && (

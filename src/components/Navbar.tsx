@@ -3,19 +3,12 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { portfolioConfig } from '../portfolio.config';
 import { BriefcaseBusiness, Download, ExternalLink, FolderKanban, Home, Menu, UserRound, X } from 'lucide-react';
 
-interface NavbarProps {
-  onOpenContact: () => void;
-}
-
-export const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
+export const Navbar: React.FC = () => {
   const { ctaButton, navLinks } = portfolioConfig;
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleCtaClick = (e: React.MouseEvent) => {
-    if (ctaButton.actionType === 'modal') {
-      e.preventDefault();
-      onOpenContact();
-    } else if (ctaButton.actionType === 'email') {
+    if (ctaButton.actionType === 'email') {
       e.preventDefault();
       window.location.href = `mailto:${ctaButton.email || 'contact@example.com'}`;
     }

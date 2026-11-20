@@ -8,16 +8,13 @@ import type { GalleryItem } from './components/ui/DragGallery';
 
 export interface SocialLink {
   name: string;
-  handle: string;
   url: string;
-  icon: 'github' | 'linkedin' | 'instagram' | 'x' | 'discord' | 'mail' | 'link';
-  copyable?: boolean;
 }
 
 export interface PortfolioConfig {
   ctaButton: {
     label: string;
-    actionType: 'download' | 'modal' | 'link' | 'email';
+    actionType: 'download' | 'link' | 'email';
     fileUrl?: string;
     downloadFileName?: string;
     link?: string;
@@ -73,9 +70,6 @@ export interface PortfolioConfig {
     items: ProjectItem[];
   };
   contactModal: {
-    title: string;
-    subtitle: string;
-    email: string;
     socials: SocialLink[];
   };
 }
@@ -83,25 +77,19 @@ export interface PortfolioConfig {
 export interface ProjectItem {
   title: string;
   description: string;
-  year: string;
   link: string;
   image: string;
   category?: string;
   fullDescription?: string;
   techStack?: string[];
-  highlights?: string[];
-  gallery?: string[];
   githubUrl?: string;
 }
 
 export interface ExperienceItem {
-  id: number;
   timelineLabel: string;
   role: string;
   organization: string;
   organizationUrl?: string;
-  period: string;
-  location?: string;
   description: string;
   highlights?: string[];
   skills?: string[];
@@ -203,12 +191,9 @@ export const portfolioConfig: PortfolioConfig = {
     subtitle: 'A timeline of experiences that shaped me into who I am today.',
     items: [
       {
-        id: 1,
         timelineLabel: 'Mar 2025 — Dec 2025',
         role: 'Equipment, Transportation, and Technical Staff',
         organization: 'HIMTI BINUS University',
-        period: 'Mar 2025 — Dec 2025',
-        location: 'Jakarta, Indonesia',
         description: 'Assisted in managing equipment logistics, transportation, and on-site technical setups across multiple HIMTI events. Ensured smooth operations by coordinating physical resources, deploying necessary hardware, and providing real-time troubleshooting behind the scenes.',
         highlights: [
           'Managed equipment logistics and coordinated transportation across multiple events.',
@@ -222,12 +207,9 @@ export const portfolioConfig: PortfolioConfig = {
         ],
       },
       {
-        id: 2,
         timelineLabel: 'May 2026 — Jun 2026',
         role: 'AI/ML Engineer',
         organization: 'TechnoScape x AD-INS Hackathon',
-        period: 'May 2026 — Jun 2026',
-        location: 'BINUS University, Jakarta',
         description: 'Developed VolumeMate, an agricultural procurement PWA for TechnoScape 2026. Built its Python/FastAPI AI engine featuring an 80%+ accurate Gradient Boosting demand forecaster and a weather-driven algorithm to optimize bulk purchase timing and costs.',
         highlights: [
           'TechnoScape 2026 Hackathon Finalist for developing VolumeMate, a mobile-first agricultural procurement PWA.',
@@ -241,19 +223,19 @@ export const portfolioConfig: PortfolioConfig = {
         ],
       },
       {
-        id: 3,
         timelineLabel: 'Sep 2026 — Dec 2026',
-        role: 'Venture Creation',
-        organization: 'BINUS University',
-        period: 'Sep 2026 — Dec 2026',
-        description: 'This section is currently a placeholder for upcoming venture creation, startup methodologies, and technical milestones that are currently in progress. Detailed project highlights and documentation will be updated here soon.',
+        role: 'Frontend Developer',
+        organization: 'Venture Creation @ BINUS University',
+        description: 'Developing the frontend of PartnerHub, an event management and sponsorship prototype for Venture Creation at BINUS University. Using Next.js, React, and TypeScript to build interfaces for organizers, participants, and sponsors.',
         highlights: [
-          'Upcoming Venture Milestone: Currently exploring lean startup methodologies and building early-stage prototypes.',
-          'Placeholder Entry: Detailed case studies, technical achievements, and media will be published here upon completion.',
+          'Built interfaces for event setup, participant registration, committee selection, and QR attendance.',
+          'Created sponsor matching, proposal, and benefit tracking pages with role-specific navigation.',
+          'Connected frontend workflows to local demo services; production integrations are in progress.',
         ],
-        skills: ['In Progress', 'Coming Soon', 'Ideation', 'Prototyping', 'Product Design'],
+        skills: ['Next.js', 'React', 'TypeScript', 'Product Design'],
         images: [
-          { src: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&auto=format&fit=crop&q=80', alt: 'Venture Creation In Progress' },
+          { src: 'https://res.cloudinary.com/iaurmiih/image/upload/v1795169170/Pasted_2026-11-20_at_4.59.09_PM.jpg', alt: 'PartnerHub Landing Page' },
+          { src: 'https://res.cloudinary.com/iaurmiih/image/upload/v1795169170/Pasted_2026-11-20_at_5.00.08_PM.jpg', alt: 'PartnerHub Dashboard' },
         ],
       },
     ],
@@ -265,9 +247,24 @@ export const portfolioConfig: PortfolioConfig = {
     subtitle: 'A curation of software systems, AI pipelines, and interactive digital products.',
     items: [
       {
+        title: 'PartnerHub',
+        description: 'Event management and sponsorship platform for campus organizations and communities.',
+        link: '',
+        category: 'Web Development',
+        image: 'https://res.cloudinary.com/iaurmiih/image/upload/v1795169170/Pasted_2026-11-20_at_4.59.09_PM.jpg',
+        fullDescription:
+          'PartnerHub is an event management and sponsorship prototype developed for Venture Creation at BINUS University. As the Frontend Developer, I built interfaces for event setup, participant registration, committee recruitment, and optional QR entry/exit attendance using Next.js, React, and TypeScript. The sponsorship pages support rule-based matching, invitations, proposals, and benefit tracking. Connected workflows currently use browser-local demo data; production authentication, payments, and database-backed operations are still in progress.',
+        techStack: [
+          'Next.js',
+          'React',
+          'TypeScript',
+          'Tailwind CSS',
+          'CSS Modules',
+        ],
+      },
+      {
         title: 'VolumeMate',
         description: 'AI-powered smart fertilizer procurement and demand forecasting platform.',
-        year: '2026',
         link: '',
         category: 'AI & Machine Learning',
         image: 'https://github.com/user-attachments/assets/101ce318-0590-4438-8e7c-d7566b0f95c3',
@@ -281,16 +278,10 @@ export const portfolioConfig: PortfolioConfig = {
           'Random Forest',
           'Joblib',
         ],
-        highlights: [
-          'VolumeMind AI Engine: Designed and built the machine learning service used for fertilizer demand forecasting.',
-          'Demand Forecasting Model: Trained a Random Forest model using historical demand, rainfall, and planting-season features.',
-          'Purchase Optimization: Built recommendation logic that finds cheaper supplier tiers when slightly larger orders reduce total procurement cost.',
-        ],
       },
       {
         title: 'Colr',
         description: 'Deep Learning image colorization using Pix2Pix cGAN.',
-        year: '2025',
         link: 'https://colr-ai.streamlit.app/',
         githubUrl: 'https://github.com/faizarii/Colr',
         category: 'Deep Learning',
@@ -306,22 +297,10 @@ export const portfolioConfig: PortfolioConfig = {
           'Scikit-Image',
           'Numpy',
         ],
-        highlights: [
-          'Pix2Pix cGAN Architecture: Frames colorization as an image-to-image translation task to predict realistic colors from grayscale inputs.',
-          'ResNet-18 Transfer Learning: Leverages a pre-trained encoder to extract deep semantic context (sky, skin, landscapes) for accurate color choices.',
-          'Interactive Web Pipeline: Connects PyTorch inference to a Streamlit UI for real-time, side-by-side visual comparisons.',
-        ],
-        gallery: [
-          'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=1000&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop',
-        ],
       },
       {
         title: 'Particle Toggler',
         description: 'Client-side Minecraft mod to easily toggle all particle and weather effects.',
-        year: '2024',
         link: 'https://modrinth.com/mod/particle-toggler',
         githubUrl: 'https://github.com/faizarii/Particle-Toggler',
         category: 'Java',
@@ -334,22 +313,10 @@ export const portfolioConfig: PortfolioConfig = {
           'Gradle',
           'Mixins',
         ],
-        highlights: [
-          'Low-Level Rendering Hooks: Used Mixins to intercept client rendering and audio pipelines for zero-overhead particle and weather culling.',
-          'Custom GUI with Live Search: Built a tabbed in-game UI featuring real-time filtering across the entire particle registry.',
-          'Synchronized State & Persistence: Linked GUI controls to auto-completing chat commands (/particledisabler) with automatic JSON config saves.',
-        ],
-        gallery: [
-          'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=1000&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1000&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1600132806370-bf17e65e942f?q=80&w=1000&auto=format&fit=crop',
-        ],
       },
       {
         title: 'Labora',
         description: 'Virtual science laboratory with interactive experiments and teacher assignments.',
-        year: '2026',
         link: 'https://labora-mu.vercel.app',
         githubUrl: 'https://github.com/OlanIsm/labora',
         category: 'Web Development',
@@ -365,22 +332,10 @@ export const portfolioConfig: PortfolioConfig = {
           'Supabase',
           'PostgreSQL',
         ],
-        highlights: [
-          'Interactive Science Simulations: Explore chemical reactions, physics experiments, and microscope specimens through virtual tools and adjustable controls.',
-          'Guided Experiments & Feedback: Follow validated experiment steps, record observations, and answer quizzes to track learning progress.',
-          'Teacher Assignments & Reporting: Assign experiments to classes or individual students, review server-calculated results, and export CSV reports.',
-        ],
-        gallery: [
-          'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1200&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=1000&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?q=80&w=1000&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1508739773434-c26b3d09e071?q=80&w=1000&auto=format&fit=crop',
-        ],
       },
       {
         title: 'Portfol.io',
         description: 'Personal developer portfolio showcasing interactive frontend craft, AI projects, and experience.',
-        year: '2026',
         link: 'https://github.com/faizarii',
         githubUrl: 'https://github.com/faizarii',
         category: 'Web Development',
@@ -395,51 +350,28 @@ export const portfolioConfig: PortfolioConfig = {
           'Vite',
           'Lenis Scroll',
         ],
-        highlights: [
-          'Kinetic & Pinned Scroll Stages: Built pinned viewport stages and interactive timeline carousels powered by Framer Motion and Lenis smooth scrolling.',
-          'Custom Design System & Micro-Interactions: Crafted a high-contrast palette with electric solar yellow accents and an interactive cursor follower lens.',
-          'Responsive & Accessible Architecture: Designed fluid, mobile-first layouts with accessible modal dialogs and seamless touch support.',
-        ],
-        gallery: [
-          'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=1200&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1000&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1000&auto=format&fit=crop',
-        ],
       },
     ],
   },
 
-  // Contact / Social Media Modal
+  // Footer social links
   contactModal: {
-    title: 'Get in Touch',
-    subtitle: 'Feel free to reach out for collaborations, project inquiries, or just to say hi!',
-    email: 'faizarifadhilah@gmail.com',
     socials: [
       {
         name: 'GitHub',
-        handle: '@faizarii',
         url: 'https://github.com/faizarii',
-        icon: 'github',
       },
       {
         name: 'LinkedIn',
-        handle: 'Faiz Ari Fadhilah',
         url: 'https://linkedin.com/in/faiz-ari-fadhilah',
-        icon: 'linkedin',
       },
       {
         name: 'Instagram',
-        handle: '@faizarii',
         url: 'https://instagram.com/faizarii',
-        icon: 'instagram',
       },
       {
         name: 'Email',
-        handle: 'faiz.arifadhilah@gmail.com',
         url: 'mailto:faiz.arifadhilah@gmail.com',
-        icon: 'mail',
-        copyable: true,
       },
     ],
   },

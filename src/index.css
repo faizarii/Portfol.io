@@ -4,13 +4,7 @@
   :root {
     --bg-dark: #00509D;
     --text-ivory: #FFE500;
-    --text-muted: #FFFFFF;
     --text-white: #FFFFFF;
-    --card-bg: rgba(0, 48, 98, 0.85);
-    --card-border: rgba(255, 255, 255, 0.16);
-    --accent-gold: #FFD166;
-    --accent-gold-hover: #FFE082;
-    --accent-text-dark: #002952;
   }
 
   * {
@@ -94,21 +88,6 @@
   overflow: hidden;
 }
 
-/* Seamless Infinite Autoloop Ribbon Animation */
-@keyframes infiniteScroll {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-  to {
-    transform: translate3d(calc(-100% / 3), 0, 0);
-  }
-}
-
-.animate-infinite-scroll {
-  animation: infiniteScroll 24s linear infinite;
-  will-change: transform;
-}
-
 /* Blinking Typewriter Cursor */
 @keyframes cursorBlink {
   0%, 100% {
@@ -167,30 +146,6 @@
     inset 0 1px 2px rgba(255, 255, 255, 0.35);
 }
 
-/* Glowing Indicator Dot */
-.indicator-dot {
-  background-color: #FFD166;
-  border-radius: 50%;
-  box-shadow: 
-    0 0 12px rgba(255, 209, 102, 0.8),
-    0 0 25px rgba(255, 209, 102, 0.35),
-    0 0 40px rgba(255, 209, 102, 0.15);
-  animation: pulseGlow 4s ease-in-out infinite alternate;
-}
-
-@keyframes pulseGlow {
-  0% {
-    transform: scale(0.95);
-    opacity: 0.9;
-    box-shadow: 0 0 10px rgba(255, 209, 102, 0.7), 0 0 20px rgba(255, 209, 102, 0.25);
-  }
-  100% {
-    transform: scale(1.05);
-    opacity: 1;
-    box-shadow: 0 0 16px rgba(255, 209, 102, 0.95), 0 0 32px rgba(255, 209, 102, 0.45);
-  }
-}
-
 /* Navigation Links */
 .nav-link {
   color: rgba(255, 255, 255, 0.9);
@@ -204,12 +159,4 @@
 
 .nav-link:hover {
   color: #FFFFFF;
-}
-
-/* Glassmorphic Project / Content Card */
-.glass-panel {
-  background: rgba(0, 48, 98, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
 }
